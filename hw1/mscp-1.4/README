@@ -1,0 +1,42 @@
+Eindhoven, December 14th, 2003
+
+This message is to announce the release of MSCP 1.4.
+
+Unfortunately, a bug crept in with the previous release,
+prohibiting MSCP from playing white in xboard.
+
+The source distribution is available through
+        http://bitpit.net/mscp/
+I am not able to construct binaries for windows, but
+I am willing to link to binary distributions that are
+reported back to me.
+
+MSCP is Marcel's Simple Chess Program. Its main purpose
+is to be a small, simple, yet complete chess engine. MSCP
+includes aspiration window tree search, quiscence search,
+move sorting, position evaluation, hash tables, opening book,
+standard algebraic move input and output. It works well
+with both xboard and icsdrone and it should run without
+trouble in winboard (but I haven't tested that).
+
+Release 1.4 fixes one bug introduced with 1.3:
+- fixed problem with playing white under xboard
+  (courtesy Peter McGavin for reporting this bug)
+
+The code is very stable. MSCP has played over 350,000 blitz
+games on FICS (freechess.org) and nearly 250,000 games on
+ICC (chessclub.com). It wins most of its games against
+humans but it is not overly strong: people do have a fair
+chance of beating it.
+
+MSCP 1.4 is released under the GNU GPL (see file COPYING
+for details.)
+
+Enjoy,
+
+        Marcel
+
+--  _   _
+  _| |_|_|
+ |_    |_     marcelk@bitpit.net
+         |_|  Marcel van Kervinck

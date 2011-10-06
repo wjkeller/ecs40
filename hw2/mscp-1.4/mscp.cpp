@@ -73,7 +73,7 @@ struct side {           /* Attacks */
         int king;
         byte pawns[10];
 };
-static struct side white, black, *friend_p, *enemy;
+static struct side white, black, *friend, *enemy;
 
 static unsigned short history[64*64]; /* History-move heuristic counters */
 

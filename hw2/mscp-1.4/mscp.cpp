@@ -73,7 +73,7 @@ struct side {           /* Attacks */
         int king;
         byte pawns[10];
 };
-static struct side white, black, *friend, *enemy;
+static struct side white, black, *friend_p, *enemy;
 
 static unsigned short history[64*64]; /* History-move heuristic counters */
 
@@ -434,7 +434,7 @@ static void compute_attacks(void)
         memset(&white, 0, sizeof white);
         memset(&black, 0, sizeof black);
 
-        friend = WTM ? &white : &black;
+        friend_p = WTM ? &white : &black;
         enemy = WTM ? &black : &white;
 
         for (sq=0; sq<64; sq++) {
@@ -753,7 +753,7 @@ static int test_illegal(int move)
         make_move(move);
         compute_attacks();
         unmake_move();
-        return friend->attack[enemy->king] != 0;
+        return friend_p->attack[enemy->king] != 0;
 }
 
 static void generate_moves(unsigned treshold)
@@ -878,7 +878,7 @@ static void generate_moves(unsigned treshold)
         /*
          *  generate castling moves
          */
-        if (board[CASTLE] && !enemy->attack[friend->king]) {
+        if (board[CASTLE] && !enemy->attack[friend_p->king]) {
                 if (WTM && (board[CASTLE] & CASTLE_WHITE_KING) &&
                         !board[F1] && !board[G1] &&
                         !enemy->attack[F1])
@@ -1010,7 +1010,7 @@ static void print_move_san(int move)
 check:
         make_move(move);
         compute_attacks();
-        if (enemy->attack[friend->king]) {      /* in check, is mate? */
+        if (enemy->attack[friend_p->king]) {      /* in check, is mate? */
                 int sign = '#';
                 moves = move_sp;
                 generate_moves(0);
@@ -1524,7 +1524,7 @@ static int qsearch(int alpha, int beta)
                 make_move(move);
 
                 compute_attacks();
-                if (friend->attack[enemy->king]) {
+                if (friend_p->attack[enemy->king]) {
                         unmake_move();
                         continue;
                 }
@@ -1586,7 +1586,7 @@ static int search(int depth, int alpha, int beta)
         }
 
         history[best_move] |= PRESCORE_HASHMOVE;
-        incheck = enemy->attack[friend->king];
+        incheck = enemy->attack[friend_p->king];
 
         /*
          *  generate moves
@@ -1609,7 +1609,7 @@ static int search(int depth, int alpha, int beta)
                 move = move_sp->move;
                 make_move(move);
                 compute_attacks();
-                if (friend->attack[enemy->king]) {
+                if (friend_p->attack[enemy->king]) {
                         unmake_move();
                         continue;
                 }
@@ -1700,7 +1700,7 @@ static int root_search(int maxdepth)
                 while (m < move_sp) {
                         make_move(m->move);
                         compute_attacks();
-                        if (friend->attack[enemy->king] != 0) { /* illegal? */
+                        if (friend_p->attack[enemy->king] != 0) { /* illegal? */
                                 unmake_move();
                                 *m = *--move_sp; /* drop this move */
                                 continue;
@@ -2021,7 +2021,7 @@ int main(void)
                         if (!move || ply >= 1000) {
                                 printf("game over: ");
                                 compute_attacks();
-                                if (!move && enemy->attack[friend->king] != 0) {
+                                if (!move && enemy->attack[friend_p->king] != 0) {
                                         puts(WTM ? "0-1" : "1-0");
                                 } else {
                                         puts("1/2-1/2");
@@ -2045,4 +2045,5 @@ int main(void)
 /*----------------------------------------------------------------------+
  |                                                                      |
  +----------------------------------------------------------------------*/
+
 

@@ -1967,7 +1967,7 @@ int main(void)
         puts(startup_message);
         signal(SIGINT, catch_sigint);
 
-        for (i=0; i<sizeof(zobrist); i++) {
+        for (i=0; i<(int)sizeof(zobrist); i++) { // fix the last signed/unsigned comparison error -Wall gives
                 ( (byte*)zobrist )[i] = rnd() & 0xff;
         }
 

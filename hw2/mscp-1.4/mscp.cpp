@@ -1563,7 +1563,7 @@ static int search(int depth, int alpha, int beta)
         int                             score;
         struct move                     *moves;
         int                             incheck = 0;
-        struct tt                       *tt;
+        struct tt_thing                       *tt;
         int                             oldalpha = alpha;
         int                             oldbeta = beta;
         int                             i, count=0;

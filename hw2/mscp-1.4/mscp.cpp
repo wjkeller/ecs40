@@ -1902,18 +1902,9 @@ static void cmd_quit(char *dummy)
         exit(0);
 }
 
-struct command mscp_commands[]; /* forward declaration */
+// WJK - I changed the forward declaration to be the function instead so the compiler doesn't have to guess the length of the mscp_commands array
 
-static void cmd_help(char *dummy)
-{
-        struct command *c;
-
-        puts("commands are:");
-        c = mscp_commands;
-        do {
-                printf("%-8s - %s\n", c->name ? c->name : "", c->help);
-        } while (c++->name != NULL);
-}
+static void cmd_help(char *dummy);
 
 struct command mscp_commands[] = {
  { "help",      cmd_help,       "show this list of commands"            },
@@ -1936,6 +1927,16 @@ struct command mscp_commands[] = {
  { NULL,        cmd_default,    "enter moves in algebraic notation"     },
 };
 
+static void cmd_help(char *dummy)
+{
+        struct command *c;
+
+        puts("commands are:");
+        c = mscp_commands;
+        do {
+                printf("%-8s - %s\n", c->name ? c->name : "", c->help);
+        } while (c++->name != NULL);
+}
 /*----------------------------------------------------------------------+
  |      main                                                            |
  +----------------------------------------------------------------------*/

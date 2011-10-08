@@ -740,8 +740,8 @@ static void gen_slides(int fr, byte dirs)
 
 static int cmp_move(const void *ap, const void *bp)
 {
-        const struct move *a = ap;
-        const struct move *b = bp;
+        const struct move *a = (const struct move*) ap;
+        const struct move *b = (const struct move*) bp;
 
         if (a->prescore < b->prescore) return -1;
         if (a->prescore > b->prescore) return 1;
@@ -1030,18 +1030,18 @@ check:
  |      move parser                                                     |
  +----------------------------------------------------------------------*/
 
-static int parse_move(char *line, int *num)
+static int parse_move(const char *line, int *num)
 {
         int                     move, matches;
         int                     n = 0;
         struct move             *m;
-        char                    *piece = NULL;
-        char                    *fr_file = NULL;
-        char                    *fr_rank = NULL;
-        char                    *to_file = NULL;
-        char                    *to_rank = NULL;
-        char                    *prom_piece = NULL;
-        char                    *s;
+        const char                    *piece = NULL;
+        const char                    *fr_file = NULL;
+        const char                    *fr_rank = NULL;
+        const char                    *to_file = NULL;
+        const char                    *to_rank = NULL;
+        const char                    *prom_piece = NULL;
+        const char                    *s;
 
         while (xisspace(line[n]))      /* skip white space */
                 n++;

@@ -346,7 +346,7 @@ static void reset(void)
         hash_stack[ply] = compute_hash();
 }
 
-static void setup_board(char *fen)
+static void setup_board(const char *fen)
 {
         int file=FILE_A, rank=RANK_8;
 

@@ -114,19 +114,24 @@ static unsigned long zobrist[12][64];   /* Hash-key construction */
 static long booksize;                   /* Number of opening book entries */
 
 /* Transposition table and opening book share the same memory */
-static union {
-        struct tt {                     /* Transposition table entry */
+// WJK I'm going to split these out and see if it stops the forward declaration error.
+        struct tt_thing {                     /* Transposition table entry */
                 unsigned short hash;    /* - Identifies position */ 
                 short move;             /* - Best recorded move */
                 short score;            /* - Score */
                 char flag;              /* - How to interpret score */
                 char depth;             /* - Remaining search depth */
-        } tt[CORE];
-        struct bk {                     /* Opening book entry */
+        };
+        
+        struct bk_thing {                     /* Opening book entry */
                 unsigned long hash;     /* - Identifies position */
                 short move;             /* - Move for this position */
                 unsigned short count;   /* - Frequency */
-        } bk[CORE];
+        };
+
+static union {
+    tt_thing tt[CORE];
+    bk_thing bk[CORE];
 } core;
 
 #define TTABLE (core.tt)
@@ -1196,8 +1201,8 @@ static int parse_move(const char *line, int *num)
 
 static int cmp_bk(const void *ap, const void *bp)
 {
-        const struct bk *a = ap;
-        const struct bk *b = bp;
+        const struct bk_thing *a = (const struct bk_thing *) ap;
+        const struct bk_thing *b = (const struct bk_thing *) bp;
 
         if (a->hash < b->hash) return -1;
         if (a->hash > b->hash) return 1;

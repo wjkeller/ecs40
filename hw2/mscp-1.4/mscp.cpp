@@ -1226,7 +1226,7 @@ static void compact_book(void)
         booksize = c;
 }
 
-static void load_book(char *filename)
+static void load_book(const char *filename)
 {
         FILE                    *fp;
         char                    line[128], *s;

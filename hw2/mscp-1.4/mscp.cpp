@@ -1265,7 +1265,7 @@ static int book_move(void)
 {
         int move = 0, sum = 0;
         long x = 0, y, m;
-        char *seperator = "book:";
+        const char *seperator = "book:";
         unsigned long hash;
 
         if (!booksize) return 0;

@@ -2,13 +2,13 @@
 #	Makefile for mscp
 #
 
-CC=gcc
+CC=g++
 CFLAGS=-Wall -O2 -ansi -pedantic
 
 TARGETS=mscp
 
-mscp:	mscp.c
-	$(CC) $(CFLAGS) -o mscp mscp.c
+mscp:	mscp.cpp
+	$(CC) $(CFLAGS) -o mscp mscp.cpp
 
 clean:
 	rm -f ${TARGETS}

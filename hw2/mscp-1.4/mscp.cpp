@@ -1,4 +1,4 @@
-
+// Converted to C++ by William Keller (#996964933) and Byron Dover (#993810019) for ECS40.
 /*----------------------------------------------------------------------+
  |                                                                      |
  |              mscp.c - Marcel's Simple Chess Program                  |

@@ -1,0 +1,17 @@
+William Keller (#996964933) and Byron Dover (#993810019)
+* Changed every instance of friend to friend_p. Frient is a reserved ford in C++.
+* Added explicit casting to every function that took a void pointer and immediately casted
+    it to something else. This is implicit in C, not in C++.
+* Changed most instances of string pointers to const, as required by C++. Old usage was deprecated.
+* Moved the definition of the two structs inside core outside it, as they are used separately
+    later. C++ does not allow this, so they are now declared separately.
+* Fixed references to those structs as they are now named differently.
+* This point was the most interesting one. Near the end of the file, a commands array is built, as
+    well as a function that acts on it, but this function is also inside the array.
+    The array has a forward declaration above the function definition so the function can access
+    it, but this doesn't work in C++. So, we moved the function below the array and changed the
+    forward declaration to be the function instead of the array and defined the function
+    afterwards, which C++ is fine with, as it does not have to look ahead and predic tthe length of
+    the array.
+* Converted the size returned by sizeof to an int because int is signed and size_t is unsigned
+    which generated a warning.
